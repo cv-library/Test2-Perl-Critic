@@ -148,9 +148,10 @@ Test2::Perl::Critic - Use Perl::Critic in test programs
 
 Test one file:
 
+  use Test::V0;
   use Test2::Perl::Critic;
-  use Test::More tests => 1;
   critic_ok($file);
+  done_testing;
 
 Or test all files in one or more directories:
 
@@ -164,10 +165,8 @@ Or test all files in a distribution:
 
 Recommended usage for CPAN distributions:
 
-  use strict;
-  use warnings;
+  use Test2::V0;
   use File::Spec;
-  use Test::More;
   use English qw(-no_match_vars);
 
   if ( not $ENV{TEST_AUTHOR} ) {
@@ -190,7 +189,7 @@ Recommended usage for CPAN distributions:
 =head1 DESCRIPTION
 
 Test2::Perl::Critic wraps the L<Perl::Critic> engine in a convenient subroutine
-suitable for test programs written using the L<Test::More> framework.  This
+suitable for test programs written using the L<Test2> framework.  This
 makes it easy to integrate coding-standards enforcement into the build
 process.  For ultimate convenience (at the expense of some flexibility), see
 the L<criticism> pragma.
@@ -232,7 +231,7 @@ does, the violations will be reported in the test diagnostics.  The optional
 second argument is the name of test, which defaults to "Perl::Critic test for
 $FILE".
 
-If you use this form, you should load L<Test::More>/L<Test2::V0> and emit your
+If you use this form, you should load L<Test2::V0> and emit your
 own test plan first or call C<done_testing()> afterwards.
 
 =back
@@ -377,8 +376,6 @@ L<Module::Starter::PBP>
 
 L<Perl::Critic>
 
-L<Test::More>
-
 L<Test2::Suite>
 
 =head1 CREDITS
@@ -392,7 +389,7 @@ Jeffrey Ryan Thalhammer <jeff@thaljef.org>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005-2017 Jeffrey Ryan Thalhammer.
+Copyright (c) 2005-2018 Jeffrey Ryan Thalhammer.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.  The full text of this license
