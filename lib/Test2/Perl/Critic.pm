@@ -1,5 +1,7 @@
 package Test2::Perl::Critic;
 
+# ABSTRACT: Use Perl::Critic in test programs
+
 use 5.006001;
 
 use strict;
@@ -139,10 +141,6 @@ __END__
 =pod
 
 =for stopwords API
-
-=head1 NAME
-
-Test2::Perl::Critic - Use Perl::Critic in test programs
 
 =head1 SYNOPSIS
 
@@ -382,18 +380,6 @@ L<Test2::Suite>
 
 Andy Lester, whose L<Test::Pod> module provided most of the code and
 documentation for Test2::Perl::Critic.  Thanks, Andy.
-
-=head1 AUTHOR
-
-Jeffrey Ryan Thalhammer <jeff@thaljef.org>
-
-=head1 COPYRIGHT
-
-Copyright (c) 2005-2018 Jeffrey Ryan Thalhammer.
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.  The full text of this license
-can be found in the LICENSE file included with this module.
 
 =cut
 
