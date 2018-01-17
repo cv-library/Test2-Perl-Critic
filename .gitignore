@@ -8,3 +8,4 @@ blib
 cover_db
 nytprof
 nytprof.out
+.build
