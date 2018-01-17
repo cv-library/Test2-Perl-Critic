@@ -2,7 +2,7 @@ Build
 MYMETA.yml
 MYMETA.json
 MANIFEST.bak
-Test-Perl-Critic-*
+Test2-Perl-Critic-*
 _build
 blib
 cover_db

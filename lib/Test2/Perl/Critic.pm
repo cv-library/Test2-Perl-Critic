@@ -366,7 +366,7 @@ where the C<$VERSION> declaration appears.
 =head1 BUGS
 
 If you find any bugs, please submit them to
-L<https://github.com/Perl-Critic/Test-Perl-Critic/issues>.  Thanks.
+L<https://github.com/Perl-Critic/Test2-Perl-Critic/issues>.  Thanks.
 
 
 =head1 SEE ALSO

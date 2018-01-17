@@ -212,7 +212,7 @@ EXPORTS
 
 BUGS
     If you find any bugs, please submit them to
-    <https://github.com/Perl-Critic/Test-Perl-Critic/issues>. Thanks.
+    <https://github.com/Perl-Critic/Test2-Perl-Critic/issues>. Thanks.
 
 SEE ALSO
     Module::Starter::PBP

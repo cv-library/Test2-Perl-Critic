@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Test-Perl-Critic</name>
+	<name>Test2-Perl-Critic</name>
 	<comment></comment>
 	<projects>
 		<project>Perl-Critic</project>

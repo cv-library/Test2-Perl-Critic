@@ -12,7 +12,7 @@ license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: '1.4'
-name: Test-Perl-Critic
+name: Test2-Perl-Critic
 provides:
   Test2::Perl::Critic:
     file: lib/Test/Perl/Critic.pm
@@ -28,9 +28,9 @@ requires:
   strict: '0'
   warnings: '0'
 resources:
-  bugtracker: https://github.com/Perl-Critic/Test-Perl-Critic/issues
+  bugtracker: https://github.com/Perl-Critic/Test2-Perl-Critic/issues
   homepage: http://perlcritic.com
   license: http://dev.perl.org/licenses/
-  repository: git://github.com/Perl-Critic/Test-Perl-Critic.git
+  repository: git://github.com/Perl-Critic/Test2-Perl-Critic.git
 version: '1.03'
 x_serialization_backend: 'CPAN::Meta::YAML version 0.018'
