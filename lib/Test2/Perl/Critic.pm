@@ -368,7 +368,12 @@ L<https://github.com/Perl-Critic/Test2-Perl-Critic/issues>.  Thanks.
 
 =head1 SEE ALSO
 
-L<Test2::Perl::Critic>
+This is a clone of C<Test::Perl::Critic> with the internals updated to
+use Test2 instead of Test::More.  This should make things like using
+C<MCE> to run critic in parallel cleaner as it has a straight forward
+way of dealing with parallel test runs.
+
+L<Test::Perl::Critic>
 
 L<Module::Starter::PBP>
 
