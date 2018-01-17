@@ -8,7 +8,8 @@ use warnings;
 use Carp qw(croak);
 use English qw(-no_match_vars);
 
-use Test::Builder qw();
+use Test2::API qw/context_do/;
+
 use Perl::Critic qw();
 use Perl::Critic::Violation qw();
 use Perl::Critic::Utils;
@@ -19,7 +20,6 @@ our $VERSION = '1.03';
 
 #---------------------------------------------------------------------------
 
-my $TEST = Test::Builder->new;
 my $DIAG_INDENT = q{  };
 my %CRITIC_ARGS = ();
 
@@ -39,8 +39,6 @@ sub import {
     # -format is supported for backward compatibility
     if ( exists $args{-format} ) { $args{-verbose} = $args{-format}; }
     %CRITIC_ARGS = %args;
-
-    $TEST->exported_to($caller);
 
     return 1;
 }
@@ -67,19 +65,23 @@ sub critic_ok {
     };
 
     # Evaluate results
-    $TEST->ok($ok, $test_name );
+    context_do {
+        my $TEST = shift;
 
-    if (!$status || $EVAL_ERROR) {   # Trap exceptions from P::C
-        $TEST->diag( "\n" );         # Just to get on a new line.
-        $TEST->diag( qq{Perl::Critic had errors in "$file":} );
-        $TEST->diag( qq{\t$EVAL_ERROR} );
-    }
-    elsif ( not $ok ) {              # Report Policy violations
-        $TEST->diag( "\n" );         # Just to get on a new line.
-        my $verbose = $critic->config->verbose();
-        Perl::Critic::Violation::set_format( $verbose );
-        for my $viol (@violations) { $TEST->diag($DIAG_INDENT . $viol) }
-    }
+        $TEST->ok($ok, $test_name );
+
+        if (!$status || $EVAL_ERROR) {   # Trap exceptions from P::C
+            $TEST->diag( "\n" );         # Just to get on a new line.
+            $TEST->diag( qq{Perl::Critic had errors in "$file":} );
+            $TEST->diag( qq{\t$EVAL_ERROR} );
+        }
+        elsif ( not $ok ) {              # Report Policy violations
+            $TEST->diag( "\n" );         # Just to get on a new line.
+            my $verbose = $critic->config->verbose();
+            Perl::Critic::Violation::set_format( $verbose );
+            for my $viol (@violations) { $TEST->diag($DIAG_INDENT . $viol) }
+        }
+    };
 
     return $ok;
 }
@@ -88,12 +90,19 @@ sub critic_ok {
 
 sub all_critic_ok {
 
-    my @dirs_or_files = @_ ? @_ : (-e 'blib' ? 'blib' : 'lib');
-    my @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
-    croak 'Nothing to critique' if not @files;
+    my $pass;
+    context_do {
+        my $ctx = shift;
+        my @dirs_or_files = @_ ? @_ : (-e 'blib' ? 'blib' : 'lib');
+        my @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
+        croak 'Nothing to critique' if not @files;
 
-    my $have_mce = eval { require MCE::Grep; MCE::Grep->import; 1 };
-    return $have_mce ? _test_parallel(@files) : _test_serial(@files);
+        my $have_mce = eval { require MCE::Grep; MCE::Grep->import; 1 };
+
+        $pass = $have_mce ? _test_parallel(@files) : _test_serial(@files);
+        $ctx->done_testing;
+    };
+    return $pass;
 }
 
 #---------------------------------------------------------------------------
@@ -101,21 +110,10 @@ sub all_critic_ok {
 sub _test_parallel {
       my @files = @_;
 
-      # Since tests are running in forked MCE workers, test results could arrive
-      # in any order. The test numbers will be meaningless, so turn them off.
-      $TEST->use_numbers(0);
-
-      # The parent won't know about any of the tests that were run by the forked
-      # workers. So we disable the T::B sanity checks at the end of its life.
-      $TEST->no_ending(1);
-
+      eval { require Test2::IPC; Test2::IPC->import; 1 }
+          or die "Unable to load Test2::IPC\n";
       my $okays = MCE::Grep->run( sub { critic_ok($_) }, @files );
       my $pass = $okays == @files;
-
-      # To make Test::Harness happy, we must emit a test plan and a sensible exit
-      # status. Usually, T::B does this for us, but we disabled the ending above.
-      $pass || eval 'END { $? = 1 }'; ## no critic qw(Eval Interpolation)
-      $TEST->done_testing(scalar @files);
 
       return $pass;
 }
@@ -127,8 +125,6 @@ sub  _test_serial {
 
   my $okays = grep {critic_ok($_)} @files;
   my $pass = $okays == @files;
-
-  $TEST->done_testing(scalar @files);
 
   return $pass;
 }
@@ -236,8 +232,8 @@ does, the violations will be reported in the test diagnostics.  The optional
 second argument is the name of test, which defaults to "Perl::Critic test for
 $FILE".
 
-If you use this form, you should load L<Test::More> and emit your own test plan
-first or call C<done_testing()> afterwards.
+If you use this form, you should load L<Test::More>/L<Test2::V0> and emit your
+own test plan first or call C<done_testing()> afterwards.
 
 =back
 
@@ -382,6 +378,8 @@ L<Module::Starter::PBP>
 L<Perl::Critic>
 
 L<Test::More>
+
+L<Test2::Suite>
 
 =head1 CREDITS
 
