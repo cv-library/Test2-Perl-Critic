@@ -4,7 +4,7 @@ To install Test2::Perl::Critic, give the following commands:
 
   tar -zxf Test2-Perl-Critic-1.03.tar.gz
   cd Test2-Perl-Critic-1.03
-  perl Build.pl
-  ./Build
-  ./Build test
-  ./Build install
+  perl Makefile.PL
+  make
+  make test
+  make install
