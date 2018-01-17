@@ -1,4 +1,4 @@
-package Test::Perl::Critic;
+package Test2::Perl::Critic;
 
 use 5.006001;
 
@@ -52,7 +52,7 @@ sub critic_ok {
     my ( $file, $test_name ) = @_;
     croak q{no file specified} if not defined $file;
     croak qq{"$file" does not exist} if not -f $file;
-    $test_name ||= qq{Test::Perl::Critic for "$file"};
+    $test_name ||= qq{Test2::Perl::Critic for "$file"};
 
     my $critic = undef;
     my @violations = ();
@@ -146,24 +146,24 @@ __END__
 
 =head1 NAME
 
-Test::Perl::Critic - Use Perl::Critic in test programs
+Test2::Perl::Critic - Use Perl::Critic in test programs
 
 =head1 SYNOPSIS
 
 Test one file:
 
-  use Test::Perl::Critic;
+  use Test2::Perl::Critic;
   use Test::More tests => 1;
   critic_ok($file);
 
 Or test all files in one or more directories:
 
-  use Test::Perl::Critic;
+  use Test2::Perl::Critic;
   all_critic_ok($dir_1, $dir_2, $dir_N );
 
 Or test all files in a distribution:
 
-  use Test::Perl::Critic;
+  use Test2::Perl::Critic;
   all_critic_ok();
 
 Recommended usage for CPAN distributions:
@@ -179,28 +179,28 @@ Recommended usage for CPAN distributions:
       plan( skip_all => $msg );
   }
 
-  eval { require Test::Perl::Critic; };
+  eval { require Test2::Perl::Critic; };
 
   if ( $EVAL_ERROR ) {
-     my $msg = 'Test::Perl::Critic required to criticise code';
+     my $msg = 'Test2::Perl::Critic required to criticise code';
      plan( skip_all => $msg );
   }
 
   my $rcfile = File::Spec->catfile( 't', 'perlcriticrc' );
-  Test::Perl::Critic->import( -profile => $rcfile );
+  Test2::Perl::Critic->import( -profile => $rcfile );
   all_critic_ok();
 
 
 =head1 DESCRIPTION
 
-Test::Perl::Critic wraps the L<Perl::Critic> engine in a convenient subroutine
+Test2::Perl::Critic wraps the L<Perl::Critic> engine in a convenient subroutine
 suitable for test programs written using the L<Test::More> framework.  This
 makes it easy to integrate coding-standards enforcement into the build
 process.  For ultimate convenience (at the expense of some flexibility), see
 the L<criticism> pragma.
 
 If you have an large existing code base, you might prefer to use
-L<Test::Perl::Critic::Progressive>, which allows you to clean your code
+L<Test2::Perl::Critic::Progressive>, which allows you to clean your code
 incrementally instead of all at once..
 
 If you'd like to try L<Perl::Critic> without installing anything, there is a
@@ -243,18 +243,18 @@ first or call C<done_testing()> afterwards.
 
 =head1 CONFIGURATION
 
-L<Perl::Critic> is highly configurable.  By default, Test::Perl::Critic
+L<Perl::Critic> is highly configurable.  By default, Test2::Perl::Critic
 invokes Perl::Critic with its default configuration.  But if you have
 developed your code against a custom Perl::Critic configuration, you will want
-to configure Test::Perl::Critic to do the same.
+to configure Test2::Perl::Critic to do the same.
 
 Any arguments passed through the C<use> pragma (or via
-C<< Test::Perl::Critic->import() >> )will be passed into the L<Perl::Critic>
+C<< Test2::Perl::Critic->import() >> )will be passed into the L<Perl::Critic>
 constructor.  So if you have developed your code using a custom
-F<~/.perlcriticrc> file, you can direct L<Test::Perl::Critic> to use your
+F<~/.perlcriticrc> file, you can direct L<Test2::Perl::Critic> to use your
 custom file too.
 
-  use Test::Perl::Critic (-profile => 't/perlcriticrc');
+  use Test2::Perl::Critic (-profile => 't/perlcriticrc');
   all_critic_ok();
 
 Now place a copy of your own F<~/.perlcriticrc> file in the distribution as
@@ -266,7 +266,7 @@ Any argument that is supported by the L<Perl::Critic> constructor can be
 passed through this interface.  For example, you can also set the minimum
 severity level, or include & exclude specific policies like this:
 
-  use Test::Perl::Critic (-severity => 2, -exclude => ['RequireRcsKeywords']);
+  use Test2::Perl::Critic (-severity => 2, -exclude => ['RequireRcsKeywords']);
   all_critic_ok();
 
 See the L<Perl::Critic> documentation for complete details on its
@@ -274,19 +274,19 @@ options and arguments.
 
 =head1 DIAGNOSTIC DETAILS
 
-By default, Test::Perl::Critic displays basic information about each Policy
+By default, Test2::Perl::Critic displays basic information about each Policy
 violation in the diagnostic output of the test.  You can customize the format
 and content of this information by using the C<-verbose> option.  This behaves
 exactly like the C<-verbose> switch on the F<perlcritic> program.  For
 example:
 
-  use Test::Perl::Critic (-verbose => 6);
+  use Test2::Perl::Critic (-verbose => 6);
 
   #or...
 
-  use Test::Perl::Critic (-verbose => '%f: %m at %l');
+  use Test2::Perl::Critic (-verbose => '%f: %m at %l');
 
-If given a number, L<Test::Perl::Critic> reports violations using one of the
+If given a number, L<Test2::Perl::Critic> reports violations using one of the
 predefined formats described below. If given a string, it is interpreted to be
 an actual format specification. If the C<-verbose> option is not specified, it
 defaults to 3.
@@ -334,7 +334,7 @@ Despite the convenience of using a test script to enforce your coding
 standards, there are some inherent risks when distributing those tests to
 others.  Since you don't know which version of L<Perl::Critic> the end-user
 has and whether they have installed any additional Policy modules, you can't
-really be sure that your code will pass the Test::Perl::Critic tests on
+really be sure that your code will pass the Test2::Perl::Critic tests on
 another machine.
 
 B<For these reasons, we strongly advise you to make your perlcritic tests
@@ -344,17 +344,17 @@ The recommended usage in the L<"SYNOPSIS"> section illustrates one way to make
 your F<perlcritic.t> test optional.  Another option is to put F<perlcritic.t>
 and other author-only tests in a separate directory (F<xt/> seems to be
 common), and then use a custom build action when you want to run them.  Also,
-you should B<not> list Test::Perl::Critic as a requirement in your build
+you should B<not> list Test2::Perl::Critic as a requirement in your build
 script.  These tests are only relevant to the author and should not be a
 prerequisite for end-use.
 
 See L<http://chrisdolan.net/talk/2005/11/14/private-regression-tests/>
-for an interesting discussion about Test::Perl::Critic and other types
+for an interesting discussion about Test2::Perl::Critic and other types
 of author-only regression tests.
 
 =head1 FOR Dist::Zilla USERS
 
-If you use Test::Perl::Critic with L<Dist::Zilla>, beware that some DZ plugins
+If you use Test2::Perl::Critic with L<Dist::Zilla>, beware that some DZ plugins
 may mutate your code in ways that are not compliant with your Perl::Critic
 rules. In particular, the standard L<Dist::Zilla::Plugin::PkgVersion> will
 inject a C<$VERSION> declaration at the top of the file, which will violate
@@ -375,6 +375,8 @@ L<https://github.com/Perl-Critic/Test-Perl-Critic/issues>.  Thanks.
 
 =head1 SEE ALSO
 
+L<Test2::Perl::Critic>
+
 L<Module::Starter::PBP>
 
 L<Perl::Critic>
@@ -384,7 +386,7 @@ L<Test::More>
 =head1 CREDITS
 
 Andy Lester, whose L<Test::Pod> module provided most of the code and
-documentation for Test::Perl::Critic.  Thanks, Andy.
+documentation for Test2::Perl::Critic.  Thanks, Andy.
 
 =head1 AUTHOR
 

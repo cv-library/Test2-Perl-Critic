@@ -9,5 +9,5 @@ BEGIN {
     $rcfile = File::Spec->catfile( qw< xt perlcriticrc > );
 }
 
-use Test::Perl::Critic -profile => $rcfile;
+use Test2::Perl::Critic -profile => $rcfile;
 all_critic_ok();

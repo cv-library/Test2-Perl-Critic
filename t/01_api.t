@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use Test::More tests => 4;
-use Test::Perl::Critic;
+use Test2::Perl::Critic;
 use English qw(-no_match_vars);
 
 #---------------------------------------------------------------------------

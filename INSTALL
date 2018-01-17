@@ -1,6 +1,6 @@
 INSTALLATION
 
-To install Test::Perl::Critic, give the following commands:
+To install Test2::Perl::Critic, give the following commands:
 
   tar -zxf Test-Perl-Critic-1.03.tar.gz
   cd Test-Perl-Critic-1.03

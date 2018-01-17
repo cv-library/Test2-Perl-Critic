@@ -39,7 +39,7 @@
       }
    },
    "provides" : {
-      "Test::Perl::Critic" : {
+      "Test2::Perl::Critic" : {
          "file" : "lib/Test/Perl/Critic.pm",
          "version" : "1.03"
       }

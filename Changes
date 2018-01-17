@@ -20,7 +20,7 @@
      then passing the list to all_critic_ok().
 
      The deprecated function all_code_files() has now been removed from
-     Test::Perl::Critic. Use Perl::Critic::Utils::all_perl_files() instead.
+     Test2::Perl::Critic. Use Perl::Critic::Utils::all_perl_files() instead.
 
 [1.02] Released on 2009-10-22
 
@@ -33,10 +33,10 @@
 [1.01] Released on 2007-01-24
 
      PRODUCTION RELEASE: You may now consider the public API of
-     Test::Perl::Critic as stable.
+     Test2::Perl::Critic as stable.
 
      Edited documentation.  Includes better example for using
-     Test::Perl::Critic in CPAN distributions.
+     Test2::Perl::Critic in CPAN distributions.
 
      Added a t/perlcritic.t test to further demonstrate the typical usage for
      CPAN distributions.
@@ -45,7 +45,7 @@
 
 [0.08] Released on 2006-11-05
 
-     All parameters to Test::Perl::Critic can now be controlled through the
+     All parameters to Test2::Perl::Critic can now be controlled through the
      .perlcriticrc file.  See the Perl::Critic POD for more info.
 
      Now compatible with the perlcritic.t test script that is generate by
@@ -59,7 +59,7 @@
      Now supports -verbose option, just like `perlcritic` does.
 
      Added support for PPI::Cache, which can speedup repeated tests. See
-     Test::Perl::Critic documentation for more details.
+     Test2::Perl::Critic documentation for more details.
 
      Now requires Perl-Critic version 0.19 or higher.
 
@@ -104,7 +104,7 @@
      Removed Test::Pod and Test::Pod::Coverage from the prerequisites list.
      Those tests only run if the modules are installed.
 
-     Test::Perl::Critic is going to require Perl::Critic version 0.08 or
+     Test2::Perl::Critic is going to require Perl::Critic version 0.08 or
      later, or it won't pass its own criticism tests.
 
 [0.01] Not released
