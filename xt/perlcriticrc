@@ -9,10 +9,11 @@ verbose = %f: %m at line %l, column %c.  %e.  (Severity: %s, %p)\n
 [-CodeLayout::RequireTidyCode]
 [-Subroutines::RequireArgUnpacking]
 [-Documentation::RequirePodLinksIncludeText]
+[-Documentation::RequirePodAtEnd]
 
 [Documentation::RequirePodSections]
-lib_sections    = NAME|DESCRIPTION|AUTHOR|COPYRIGHT
-script_sections = NAME|DESCRIPTION|AUTHOR|COPYRIGHT
+lib_sections    = NAME|DESCRIPTION|AUTHOR|COPYRIGHT AND LICENSE
+script_sections = NAME|DESCRIPTION|AUTHOR|COPYRIGHT AND LICENSE
 
 [CodeLayout::ProhibitHardTabs]
 allow_leading_tabs = 0
