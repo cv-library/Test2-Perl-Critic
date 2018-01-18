@@ -18,7 +18,7 @@ use Perl::Critic::Utils;
 
 #---------------------------------------------------------------------------
 
-our $VERSION = '1.03';
+our $VERSION = '0.01';
 
 #---------------------------------------------------------------------------
 
@@ -191,6 +191,10 @@ suitable for test programs written using the L<Test2> framework.  This
 makes it easy to integrate coding-standards enforcement into the build
 process.  For ultimate convenience (at the expense of some flexibility), see
 the L<criticism> pragma.
+
+This is a minor fork of L<Test::Perl::Critic> to use L<Test2> explicitly rather
+than L<Test::More>.  This primarily allows for nicer output when you make the most
+of L<MCE> to run the C<all_critic_ok> tests in parallel.
 
 If you have an large existing code base, you might prefer to use
 L<Test2::Perl::Critic::Progressive>, which allows you to clean your code
